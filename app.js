@@ -34,7 +34,7 @@ app.post("/", (req, res)=>{
   const content = req.body.content;
   const message = "Name: "+name+" Email: "+email+" Message: "+content;
   main(message).catch(console.error);
-  res.send("Success");
+  res.redirect("https://confuseddev.github.io");
 });
 
 app.listen(process.env.PORT, ()=>{
