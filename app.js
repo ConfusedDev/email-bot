@@ -8,7 +8,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-async function main(message){
+async function main(name, email, content){
   let transporter = nodemailer.createTransport({
     host: "email-smtp.us-east-1.amazonaws.com",
     port: 587,
@@ -22,7 +22,14 @@ async function main(message){
   let info = await transporter.sendMail({
     from: "Email-Bot <"+process.env.EMAIL+">",
     to: "Bradley <sendallthemailto@gmail.com>",
-    text: message
+    subject: "New Email from Email-Bot",
+    html: `<h3>Name</h3>
+    <p>${name}</p>
+    <h3>Email</h3>
+    <p>${email}</p>
+    <h3>Message</h3>
+    <p>${content}</p>
+    `
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -32,8 +39,7 @@ app.post("/", (req, res)=>{
   const name = req.body.name;
   const email = req.body.email;
   const content = req.body.content;
-  const message = "Name: "+name+" Email: "+email+" Message: "+content;
-  main(message).catch(console.error);
+  main(name, email, content).catch(console.error);
   res.redirect("https://confuseddev.github.io");
 });
 
