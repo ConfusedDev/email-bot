@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 async function main(name, email, content){
   let transporter = nodemailer.createTransport({
-    host: "email-smtp.us-east-1.amazonaws.com",
+    host: process.env.HOSTURL,
     port: 587,
     secure:false,
     auth: {
@@ -21,7 +21,7 @@ async function main(name, email, content){
 
   let info = await transporter.sendMail({
     from: "Email-Bot <"+process.env.EMAIL+">",
-    to: "Bradley <sendallthemailto@gmail.com>",
+    to: "Bradley <"+process.env.SENDMAIL+">",
     subject: "New Email from Email-Bot",
     html: `<h3>Name</h3>
     <p>${name}</p>
