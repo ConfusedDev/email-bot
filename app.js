@@ -40,7 +40,7 @@ app.post("/", (req, res)=>{
   const email = req.body.email;
   const content = req.body.content;
   main(name, email, content).catch(console.error);
-  res.redirect("https://confuseddev.github.io");
+  res.redirect("https://bradsdesk.com");
 });
 
 app.listen(process.env.PORT, ()=>{
